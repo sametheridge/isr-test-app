@@ -1,10 +1,14 @@
-import Image from 'next/image'
-import styles from './page.module.css'
+import Image from "next/image";
+import styles from "./page.module.css";
 
-export default function Home() {
+export default async function Home() {
+  const data = await fetch("https://baconipsum.com/api/?type=meat-and-filler", {
+    next: { revalidate: 60 },
+  }).then((x) => x.json());
   return (
     <main className={styles.main}>
       <div className={styles.description}>
+        <pre>{data}</pre>
         <p>
           Get started by editing&nbsp;
           <code className={styles.code}>app/page.js</code>
@@ -15,7 +19,7 @@ export default function Home() {
             target="_blank"
             rel="noopener noreferrer"
           >
-            By{' '}
+            By{" "}
             <Image
               src="/vercel.svg"
               alt="Vercel Logo"
@@ -91,5 +95,5 @@ export default function Home() {
         </a>
       </div>
     </main>
-  )
+  );
 }
